@@ -1,3 +1,11 @@
 site_name: Learning Dashboard Docs
 theme:
   name: material
+
+site_url: https://reljod.github.io/Learning-Dashboard-App/
+repo_name: Learning Dashboard App
+repo_url: https://github.com/Reljod/Learning-Dashboard-App
+edit_uri: ""
+
+theme:
+  name: material
