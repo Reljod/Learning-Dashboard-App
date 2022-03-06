@@ -1,9 +1,12 @@
+import React from "react";
+import NavBar from "./components/NavBar";
+import Dashboard from "./views/dashboard";
 
 function App() {
   return (
     <div className="App">
-      <h1>Learning Dashboard</h1>
-      <p>Welcome to the Learning Dashboard!</p>
+      <NavBar></NavBar>
+      <Dashboard></Dashboard> {/*TODO: It will be added in the router*/}
     </div>
   );
 }
