@@ -25,27 +25,23 @@ const Table = () => {
 const RecentLearningsItems = ({headers}) => {
   const [recentLearnings, setRecentLearnings] = useState([]);
 
-  // const getRecentLearnings = () => {
-  //   fetch("http://localhost:3001/recent-learnings")
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       console.log(res);
-  //       setRecentLearnings(res);
-  //     })
-  // }
-
   useEffect(() => {
     const getRecentLearnings = async () => {
-      const response = await fetch("http://localhost:3001/recent-learnings");
-      const data = await response.json();
-      console.log(data);
-      setRecentLearnings(data);
+      const url = "http://localhost:3001/recent-learnings";
+      const response = await fetch(url)
+        .catch(err => {
+          console.log(err.message, url);
+          setRecentLearnings([]);
+        });
+
+      if (response && response.ok) {
+        const data = await response.json();
+        setRecentLearnings(data);
+      }
     }
 
     getRecentLearnings();
   }, []);
-
-  console.log(...headers);
 
   return (
     <tbody>

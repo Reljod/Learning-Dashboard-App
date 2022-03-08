@@ -1,12 +1,14 @@
 import React from "react";
 import ProfilePic from "../assets/profile-pic.jpg"
+import NavButton from "./NavButton";
 import "./navbar.css"
 
 const NavBar = () => {
   return (
     <div className="nav-bar">
       <ProfilePicture imgDir={ProfilePic}></ProfilePicture>
-      <div></div>   
+      <NavButton buttonClass="dashboard-icon" text="Dashboard" path="/dashboard" />
+      <NavButton buttonClass="notes-icon" text="Notes" path="/notes" />
     </div>
   );
 }

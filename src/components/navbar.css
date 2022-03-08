@@ -3,7 +3,8 @@
 	min-height: 100vh;
 	width: 262px;
 	background-color: #e2e0f8;
-	justify-content: center;
+	/* justify-content: center; */
+	flex-direction: column;
 }
 
 .profile-picture-img {
@@ -21,6 +22,7 @@
 	margin-top: 31px;
 	margin-left: 55px;
 	margin-right: 55px;
+	margin-bottom: 31px;
 	border-radius: 50%;
 	border: 1px solid #707070;
 	overflow: hidden;
