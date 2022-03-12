@@ -1,5 +1,5 @@
 import React from 'react';
-import '../css/navigation/navigation.css';
+import '../styles/navigation/navigation.css';
 import { useNavigate, useLocation } from "react-router-dom";
 
 const NavButton = ({buttonClass, text, path}) => {

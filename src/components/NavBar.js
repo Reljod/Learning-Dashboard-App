@@ -1,7 +1,7 @@
 import React from "react";
 import ProfilePic from "../assets/profile-pic.jpg"
 import NavButton from "./NavButton";
-import "./navbar.css"
+import "../styles/navigation/navigation.css"
 
 const NavBar = () => {
   return (

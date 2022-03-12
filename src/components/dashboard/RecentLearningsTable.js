@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
-import "./index.css";
+import React from "react";
+import { useQuery } from "react-query";
+import "../../styles/components/dashboard.css";
+
+import learningsAPI from "../../api/learnings"
+
+
 
 const Table = () => {
-  
+  const { data, isLoading, isError } = useQuery('learnings', learningsAPI);
 
   const header = [
     "ID", "Title", "Source",
@@ -12,41 +17,28 @@ const Table = () => {
   return (
     <div className="dtable rltable">
       <div className="dtable-title">Recent Learnings</div>
-      <table className="rlt-table">
-        <RecentLearningsHeader headers={ header }></RecentLearningsHeader>
-        <RecentLearningsItems
-          headers={ header }
-        ></RecentLearningsItems>
-      </table>
+      {
+        (isLoading || isError) ?
+        isLoading ? (<div>Loading...</div>) : (<div>Failed to fetch from Server...</div>)
+
+        : <table className="rlt-table">
+            <RecentLearningsHeader headers={ header }></RecentLearningsHeader>
+            <RecentLearningsItems
+              headers={ header }
+              data={ data }
+            ></RecentLearningsItems>
+          </table>
+      }
     </div>
   )
 }
 
-const RecentLearningsItems = ({headers}) => {
-  const [recentLearnings, setRecentLearnings] = useState([]);
-
-  useEffect(() => {
-    const getRecentLearnings = async () => {
-      const url = "http://localhost:3001/recent-learnings";
-      const response = await fetch(url)
-        .catch(err => {
-          console.log(err.message, url);
-          setRecentLearnings([]);
-        });
-
-      if (response && response.ok) {
-        const data = await response.json();
-        setRecentLearnings(data);
-      }
-    }
-
-    getRecentLearnings();
-  }, []);
-
+const RecentLearningsItems = ({headers, data}) => {
+  
   return (
     <tbody>
       {
-        recentLearnings.map((item, i) => {
+        data && data.map((item, i) => {
           return (
             <tr key={i} className="rlitem">
               <td className="rli rli-id">{item.id}</td>
