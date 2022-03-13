@@ -7,7 +7,7 @@ import { getLearnings } from "../../api/learnings"
 
 
 const Table = () => {
-  const { data, isLoading, isError } = useQuery('learnings', learningsAPI.getLearnings);
+  const { data, isLoading, isError } = useQuery('learnings', getLearnings);
 
   const header = [
     "ID", "Title", "Source",

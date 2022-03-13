@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const BACKEND_URL = import.meta.env;
+const BACKEND_URL = import.meta.env.VITE_APP_BACKEND_URL || "http://localhost:8000";
 
 export const getLearnings = () => {
-
   const url = `${BACKEND_URL}/learnings`;
 
   const promise = new Promise( (resolve, reject) => {
