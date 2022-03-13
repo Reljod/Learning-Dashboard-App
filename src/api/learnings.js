@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = import.meta.env;
 
-const learningsAPI = (resolve, reject) => {
+export const getLearnings = () => {
 
   const url = `${BACKEND_URL}/learnings`;
 
@@ -22,4 +22,14 @@ const learningsAPI = (resolve, reject) => {
   return promise; 
 }
 
-export default learningsAPI;
+export const saveLearnings = (data) => {
+  const url = `${BACKEND_URL}/learnings`;
+
+  const promise = new Promise( (resolve, reject) => {
+    // To be changed to server side call.
+    setTimeout(() => console.log(`Auto saving..: ${data.title}: ${data.body}`, ), 200);
+    resolve(true);
+  });
+  
+  return promise; 
+}

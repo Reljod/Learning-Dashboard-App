@@ -95,6 +95,7 @@ input::selection.ne-title, input::-moz-selection.ne-title {
 	border: none;
 	width: 95%;
 	height: 875px;
+	padding: 10px;
 }
 
 .ne-tools {
@@ -104,4 +105,16 @@ input::selection.ne-title, input::-moz-selection.ne-title {
 	border-radius: 10px;
 	position: relative;
 	top: -45px;
+}
+
+.ne-auto-save {
+	font: normal normal normal 18px/18px Montserrat;
+	opacity: 80%;
+	color: #FFFFFF;
+	position: absolute;
+	bottom: 0%;
+	right: 2%;
+	background-color: #686868;
+	padding-left: 10;
+	padding-right: 10;
 }

@@ -2,12 +2,12 @@ import React from "react";
 import { useQuery } from "react-query";
 import "../../styles/components/dashboard.css";
 
-import learningsAPI from "../../api/learnings"
+import { getLearnings } from "../../api/learnings"
 
 
 
 const Table = () => {
-  const { data, isLoading, isError } = useQuery('learnings', learningsAPI);
+  const { data, isLoading, isError } = useQuery('learnings', learningsAPI.getLearnings);
 
   const header = [
     "ID", "Title", "Source",
