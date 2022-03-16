@@ -1,56 +1,61 @@
 import React, { useState, useCallback } from 'react';
+import AutoSave from "../autosave";
+import NotesButton from "./notesTools";
+
+import { formatDate } from "../../helper/datetime"
 import "../../styles/components/notes.css";
 
-import NotesButton from "./notesTools";
-import AutoSave from "../autosave"
+const NotesEditor = ({notes, onChangeTitle, onChangeBody}) => {
 
-const NotesEditor = () => {
-  const [notesData, setNotesData] = useState('');
-  const [titleData, setTitleData] = useState('');
+	const [isSaving, setIsSaving] = useState(false);
 
-  const mostRecentUpdate = new Date(Date.now());
-  const createdByDate = new Date(Date.now());
-  const status = {
-    "tag": "To Do",
-    "style": "ne-status-todo" // "ne-status-on-going", "ne-status-todo"
+  const titleData = notes.title;
+  const notesData = notes.body;
+  const mostRecentUpdate = notes.mostRecentUpdate;
+  const createdDate = notes.createdDate;
+  const status = notes.status;
+
+  const statusStyleMap = {
+    "to do": "ne-status-todo",
+    "ongoing": "ne-status-ongoing",
+    "done": "ne-status-done"
   }
 
-  const onChangeBody = useCallback(e => {
-    const notes = e.target.value;
-    setNotesData(notes);
-  }, [])
-  
-  const onChangeTitle = useCallback(e => {
-    const titleText = e.target.value;
-    setTitleData(titleText);
-  }, [])
+  const onChangeTitleHandle = (e) => {
+	  onChangeTitle(e);
+    setIsSaving(!isSaving);
+  }
+
+  const onChangeBodyHandle = (e) => {
+    onChangeBody(e);
+    setIsSaving(!isSaving);
+  }
 
   // ne = notes-editor
   return (
-	
     <div className='ne-guidance'>
-	    <AutoSave title={ titleData } body={ notesData }></AutoSave>
       <input 
         type="text" 
         className='ne-title' 
         placeholder='Title'
-        onChange={ onChangeTitle }
+        onInput={ onChangeTitleHandle }
         value={ titleData }
         autoFocus
       />
       <div className='ne-body'>
+        <AutoSave data={ notes } isSavingHandle = { isSaving }></AutoSave>
         <div className='ne-tags'>
-          <p className="ne-dates">{ "Most Recent Update: " + mostRecentUpdate.toDateString() }</p>
-          <div className={'ne-status-tag ' + status.style}>
-            { status.tag }
+          <p className="ne-dates">{ "Most Recent Update: " + formatDate(mostRecentUpdate) }</p>
+          <div className={'ne-status-tag ' + statusStyleMap[status] }>
+            { status }
           </div>
-          <p className="ne-dates">{ "Created by: " + createdByDate.toDateString() }</p>
+          <p className="ne-dates">{ "Created by: " + formatDate(createdDate) }</p>
         </div>
         <textarea
           className="ne-text-area"
           placeholder="Add your notes here..."
           row="50"
-          onChange={ onChangeBody }
+          onInput={ onChangeBodyHandle }
           value={ notesData }
         />
       </div>
