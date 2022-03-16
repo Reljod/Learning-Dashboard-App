@@ -24,10 +24,23 @@ export const getLearnings = () => {
 export const saveLearnings = (data) => {
   const url = `${BACKEND_URL}/learnings`;
 
+  const mostRecentUpdate = new Date(data.mostRecentUpdate).toString();
+  const createdDate = new Date(data.createdDate).toString();
+
+  data = {...data, mostRecentUpdate: mostRecentUpdate, createdDate: createdDate};
+
   const promise = new Promise( (resolve, reject) => {
-    // To be changed to server side call.
-    setTimeout(() => console.log(`Auto saving..: ${data.title}: ${data.body}`, ), 200);
-    resolve(true);
+    axios.put(url, data).then(
+      response => {
+        resolve(true);
+        console.log(response);
+      }
+    ).catch(
+      error => {
+      console.log(error.toJSON());
+      reject()
+      }
+    );
   });
   
   return promise; 

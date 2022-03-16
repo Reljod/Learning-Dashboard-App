@@ -4,7 +4,7 @@ import "../styles/components/notes.css"
 
 import { saveLearnings } from "../api/learnings";
 
-export default function Autosave (props) {
+export default function Autosave ({data, isSavingHandle}) {
 
   const [isSaving, setIsSaving] = useState(false);
   const DEBOUNCE_SAVE_DELAY_MS = 5000;
@@ -17,8 +17,8 @@ export default function Autosave (props) {
   );
 
   const debouncedSave = useCallback(
-    debounce( async (props) => {
-      const isDone = await saveLearnings(props);
+    debounce( async (data) => {
+      const isDone = await saveLearnings(data);
       if (isDone) {
         setTimeout(() => setIsSaving(false), 1000); // show the Auto saving.. in 1 second.
       }
@@ -27,11 +27,11 @@ export default function Autosave (props) {
   );
 
   useEffect(() => {
-    if (props && props.title) {
+    if (data && data.title) {
       debounceSaveLoading();
-      debouncedSave(props);
+      debouncedSave(data);
     }
-  }, [props, debouncedSave, debounceSaveLoading]);
+  }, [isSavingHandle, debouncedSave, debounceSaveLoading]);
 
   return (
       <div className="ne-auto-save">
